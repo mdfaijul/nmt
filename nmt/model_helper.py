@@ -397,9 +397,10 @@ def _single_cell(unit_type, num_units, forget_bias, dropout, mode,
   # Cell Type
   if unit_type == "lstm":
     utils.print_out("  LSTM, forget_bias=%g" % forget_bias, new_line=False)
-    single_cell = tf.contrib.rnn.BasicLSTMCell(
+    single_cell = tf.contrib.rnn.LSTMBlockCell(
         num_units,
-        forget_bias=forget_bias)
+        forget_bias=forget_bias,
+        name="basic_lstm_cell")
   elif unit_type == "gru":
     utils.print_out("  GRU", new_line=False)
     single_cell = tf.contrib.rnn.GRUCell(num_units)

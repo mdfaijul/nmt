@@ -55,14 +55,22 @@ def decode_and_evaluate(name,
       elif infer_mode == "beam_search":
         num_translations_per_input = min(num_translations_per_input, beam_width)
 
+      NUM_BATCHES = 2 # number of batches to infer
+      t = 0
       while True:
         try:
+          t = t + 1
           nmt_outputs, _ = model.decode(sess)
           if infer_mode != "beam_search":
             nmt_outputs = np.expand_dims(nmt_outputs, 0)
 
           batch_size = nmt_outputs.shape[1]
           num_sentences += batch_size
+          if t == NUM_BATCHES:
+            utils.print_time(
+                "  done, num sentences %d, num translations per input %d" %
+                (num_sentences, num_translations_per_input), start_time)
+            break
 
           for sent_id in range(batch_size):
             for beam_id in range(num_translations_per_input):

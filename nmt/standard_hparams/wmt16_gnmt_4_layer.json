@@ -7,7 +7,7 @@
   "encoder_type": "gnmt",
   "eos": "</s>",
   "forget_bias": 1.0,
-  "infer_batch_size": 32,
+  "infer_batch_size": 64,
   "init_weight": 0.1,
   "learning_rate": 1.0,
   "max_gradient_norm": 5.0,
